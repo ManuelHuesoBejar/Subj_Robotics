@@ -1,2 +1,5 @@
 # Temp files (LibreOffice)
 .~lock.*#
+
+# Visual Studio Code config dir
+.vscode
