@@ -10,7 +10,9 @@ private:
 
 public:
     Rotation_sensor(uint8_t pin_, double spin_range_)
-        : Potentiometer_sensor(pin_, spin_range_) {};
+        : Potentiometer_sensor{pin_, spin_range_} {};
+    Rotation_sensor(uint8_t pin_, double spin_range_, double i_rel_)
+        : Potentiometer_sensor{pin_, spin_range_}, i_rel{i_rel_} {};
     
     double read_angle();
     double get_offset() { return offset; }
