@@ -5,7 +5,7 @@
 #include "Arduino.h"
 
 // ADC de 10 bits de resolución
-// constexpr int MAX_ADC = 1023;
+constexpr int MAX_ADC = 1023;
 
 class Potentiometer_sensor {
 protected:
@@ -18,8 +18,9 @@ public:
         : pin{pin_}, spin_range{spin_range_} {};
     // TODO: acelerar con lectura directa por registros (?)
     int read() {
-        return reverse ? (1023 - analogRead(pin)) : analogRead(pin);
+        return reverse ? (MAX_ADC - analogRead(pin)) : analogRead(pin);
     }
+    // Getters & setters
     bool is_reversed() { return reverse; }
     void set_reversed(bool reversed_) { reverse = reversed_; }
 };
