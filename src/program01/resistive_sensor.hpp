@@ -16,13 +16,14 @@ protected:
 public:
     Potentiometer_sensor(uint8_t pin_, double spin_range_)
         : pin{pin_}, spin_range{spin_range_} {};
-    // TODO: acelerar con lectura directa por registros (?)
-    int read() {
-        return reverse ? (MAX_ADC - analogRead(pin)) : analogRead(pin);
-    }
+    
     // Getters & setters
     bool is_reversed() { return reverse; }
     void set_reversed(bool reversed_) { reverse = reversed_; }
+    // Lectura
+    int read() { // TODO: acelerar con lectura directa por registros (?)
+        return reverse ? (MAX_ADC - analogRead(pin)) : analogRead(pin);
+    }
 };
 
 #endif // POTENTIOMETER_SENSOR_H

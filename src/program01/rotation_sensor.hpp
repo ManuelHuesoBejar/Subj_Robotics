@@ -13,10 +13,13 @@ public:
         : Potentiometer_sensor{pin_, spin_range_} {};
     Rotation_sensor(uint8_t pin_, double spin_range_, double i_rel_)
         : Potentiometer_sensor{pin_, spin_range_}, i_rel{i_rel_} {};
-    
-    double read_angle();
+    // Inicialización, por si fuese necesaria (lo será)
+    void begin() {};
+    // Getters & setters
     double get_offset() { return offset; }
     void set_offset(double offset_) { offset = offset_; }
+    // Lectura del ángulo
+    double read_angle();
 };
 
 #endif // ROTATION_SENSOR_H
