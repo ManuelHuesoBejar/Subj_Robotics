@@ -18,7 +18,7 @@ Abstract: primer prototipo de software para probar cosiñas
 #define SENS_Q1 A0
 
 // Estados disponibles del robot
-enum State_machine {
+static enum State_machine {
     uninitialized_robot = 0,
     emergency_stop = 1,
     homing_required,
@@ -27,7 +27,7 @@ enum State_machine {
     swab_change_required,
 } state;
 
-Rotation_sensor Q1_sens{SENS_Q1, 3600.0};
+static Rotation_sensor Q1_sens{SENS_Q1, 3600.0};
 
 void setup() {
     state = uninitialized_robot;
