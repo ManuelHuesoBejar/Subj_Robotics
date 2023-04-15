@@ -24,7 +24,8 @@ static enum State_machine {
     homing_required,
     swabbing_available,
     swabbing_procedure,
-    swab_change_required,
+    swab_pick_up,
+    swab_place,
 } state;
 
 static Rotation_sensor Q1_sens{SENS_Q1, 3600.0};
@@ -47,7 +48,9 @@ void loop() {
         break;
     case swabbing_procedure:
         break;
-    case swab_change_required:
+    case swab_pick_up:
+        break;
+    case swab_place:
         break;
 
     default:
