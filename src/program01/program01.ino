@@ -54,9 +54,16 @@ void setup() {
     cbi(ADCSRA,ADPS1);
     cbi(ADCSRA,ADPS0);
 #endif
+    Serial.begin(115200);
+    Serial.println(">> Webo!");
+    Serial.println("Sys: Modelo M ha despertado");
+    Serial.println(">> Hola, me dispongo a meterte un hisopo por la nariz.");
+    Serial.println("Sys: Modelo M te está amenazando, hazle caso.");
 }
 
 void loop() {
+    Serial.print(Q1_sens.read()); Serial.print(" --> ");
+    Serial.print(Q1_sens.read_angle()); Serial.println("º");
     switch (state)
     {
     case uninitialized_robot:
