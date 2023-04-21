@@ -30,12 +30,16 @@ public:
      * @return Si hay error, el ID del motor
      */
     virtual int move();
-    /** @brief Parada controlada y rápida del motor
+    /** @brief Parada rápida del motor por seguridad
      */
     virtual void emergency_stop();
     /** @brief Implementa lectura de la posición actual, actualiza atributos
      */
     virtual void get_current_pos();
+    /** @brief Verifica que todo está OK. Eso incluye que no aumente
+     * significativamente el error en el tiempo
+    */
+    void watchdog();
 };
 
 #endif // ACTUATOR_H
