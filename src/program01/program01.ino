@@ -8,33 +8,62 @@ File: program01.ino
 Abstract: primer prototipo de software para probar cosiñas
 */
 
-// Lo siento, uso VSCode
+/* IntelliSense fix for VSCode, hardcoded, let it rest here for the team */
 #include "Arduino.h"
 
-// Inclusión de cabeceras del programa
+/* Inclusión de cabeceras del programa */
 #include "rotation_sensor.hpp"
 
-// Pines de los sensores
+/* Instrucciones para la manipulación directa de registros */
+// defines for setting and clearing register bits
+#ifndef cbi
+#define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
+#endif
+#ifndef sbi
+#define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
+#endif
+
+/* Características modificables */
+// Aumentar frecuencia de la señal de reloj del ADC
+// [1] https://forum.arduino.cc/t/faster-analog-read/6604/6
+#define FASTADC 1
+
+/* Pines de los sensores */
 #define SENS_Q1 A0
 
-// Estados disponibles del robot
-enum State_machine {
+/* Estados disponibles del robot */
+static enum State_machine {
     uninitialized_robot = 0,
     emergency_stop = 1,
     homing_required,
     swabbing_available,
     swabbing_procedure,
-    swab_change_required,
+    swab_pick_up,
+    swab_place,
 } state;
 
-Rotation_sensor Q1_sens{SENS_Q1, 3600.0};
+static Rotation_sensor Q1_sens{SENS_Q1, 3600.0};
 
 void setup() {
     state = uninitialized_robot;
     Q1_sens.begin();
+
+#if FASTADC // [1], faster ADC
+    // set prescale to 16
+    sbi(ADCSRA,ADPS2);
+    cbi(ADCSRA,ADPS1);
+    cbi(ADCSRA,ADPS0);
+#endif
+    Serial.begin(115200);
+    Serial.println(">> Webo!");
+    Serial.println("Sys: Modelo M ha despertado");
+    Serial.println(">> Hola, me dispongo a meterte un hisopo por la nariz.");
+    Serial.println("Sys: Modelo M te está amenazando, hazle caso.");
 }
 
 void loop() {
+    Serial.print(Q1_sens.read()); Serial.print(" --> ");
+    Serial.print(Q1_sens.read_angle()); Serial.println("º");
     switch (state)
     {
     case uninitialized_robot:
@@ -47,7 +76,9 @@ void loop() {
         break;
     case swabbing_procedure:
         break;
-    case swab_change_required:
+    case swab_pick_up:
+        break;
+    case swab_place:
         break;
 
     default:
