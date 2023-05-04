@@ -1,5 +1,7 @@
 #include "actuator.hpp"
 
+uint8_t Actuator::ID_counter = 0;
+
 int Actuator::set_target(double target) {
     if (limits[0] <= target and target <= limits[1]) {
         target_pos = target;

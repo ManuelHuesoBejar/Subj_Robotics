@@ -22,8 +22,9 @@ public:
     }
     uint8_t get_id() { return ID; }
     int set_target(double target);
-    double get_target();
+    double get_target() { return target_pos; }
     void set_limits(double lim1, double lim2);
+    void get_limits(double& lim1, double& lim2) { lim1 = limits[0]; lim2 = limits[1]; }
     /**
      * @brief Mueve el motor. Debe llamarse cíclicamente y calcula posición,
      * errores y hace seguimiento del estado.
