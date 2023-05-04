@@ -2,6 +2,7 @@
 #define ACTUATOR_H
 
 #include <math.h>
+#include <inttypes.h>
 
 class Actuator {
 private:
@@ -22,8 +23,9 @@ public:
     }
     uint8_t get_id() { return ID; }
     int set_target(double target);
-    double get_target();
+    double get_target() { return target_pos; }
     void set_limits(double lim1, double lim2);
+    void get_limits(double& lim1, double& lim2) { lim1 = limits[0]; lim2 = limits[1]; }
     /**
      * @brief Mueve el motor. Debe llamarse cíclicamente y calcula posición,
      * errores y hace seguimiento del estado.
@@ -35,7 +37,7 @@ public:
     virtual void emergency_stop();
     /** @brief Implementa lectura de la posición actual, actualiza atributos
      */
-    virtual void get_current_pos();
+    virtual double get_current_pos();
     /** @brief Verifica que todo está OK. Eso incluye que no aumente
      * significativamente el error en el tiempo
     */
