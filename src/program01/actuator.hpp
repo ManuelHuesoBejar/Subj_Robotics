@@ -2,6 +2,7 @@
 #define ACTUATOR_H
 
 #include <math.h>
+#include <inttypes.h>
 
 class Actuator {
 private:
@@ -36,7 +37,7 @@ public:
     virtual void emergency_stop();
     /** @brief Implementa lectura de la posición actual, actualiza atributos
      */
-    virtual void get_current_pos();
+    virtual double get_current_pos();
     /** @brief Verifica que todo está OK. Eso incluye que no aumente
      * significativamente el error en el tiempo
     */
