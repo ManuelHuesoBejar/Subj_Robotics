@@ -12,7 +12,7 @@ Abstract: primer prototipo de software para probar cosiñas
 #include "Arduino.h"
 
 /* Inclusión de cabeceras del programa */
-#include "rotation_sensor.hpp"
+#include "sensors/rotation_sensor.hpp"
 
 /* Instrucciones para la manipulación directa de registros */
 // defines for setting and clearing register bits
@@ -62,8 +62,6 @@ void setup() {
 }
 
 void loop() {
-    Serial.print(Q1_sens.read()); Serial.print(" --> ");
-    Serial.print(Q1_sens.read_angle()); Serial.println("º");
     switch (state)
     {
     case uninitialized_robot:

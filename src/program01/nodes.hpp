@@ -1,5 +1,4 @@
 #pragma once
-
 struct node{
     //posición p{eje}
     double px;
