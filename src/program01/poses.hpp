@@ -1,12 +1,15 @@
 #pragma once
 
-template <typename N>
 struct pose{
-    pose(N x=0, N y=0, N z=0, N _rx=0, N _ry=0, N _rz=0): px{x},py{y},pz{z},rx{_rx},ry{_ry},rz{_rz} {};
-    N px;
-    N py;
-    N pz;
-    N rx;
-    N ry;
-    N rz;
+    //puesto en este orden ya que los últimos grados creo que se cambiarán más
+    pose(double t4=0, double t3=0, double l2=0, double t3=0):
+    q1{t1},d2{l2},q3{t3},q4{t4} {};
+    //grado de la base
+    double q1;
+    //prismático
+    double d2;
+    //rotativo en prismática
+    double q3;
+    //última rotativa
+    double q4;
 };
