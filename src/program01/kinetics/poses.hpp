@@ -1,8 +1,8 @@
 #pragma once
 
-struct pose{
+struct Pose{
     //puesto en este orden ya que los últimos grados creo que se cambiarán más
-    pose(double t4=0, double t3=0, double l2=0, double t3=0):
+    Pose(double t4=0, double t3=0, double l2=0, double t1=0):
     q1{t1},d2{l2},q3{t3},q4{t4} {};
     //grado de la base
     double q1;
