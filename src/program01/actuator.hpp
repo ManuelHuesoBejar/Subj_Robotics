@@ -19,7 +19,9 @@ public:
  * A cada uno se le asigna un identificador, que por ejemplo se retorna en caso de error.
  */
     Actuator() {
-        ID = ++ID_counter;
+        if (!ID_counter) ID = ID_counter = 1;
+        else if (ID_counter < UINT8_MAX and ID_counter) ID = ID_counter <<= 1;
+        else ID = 0;
     }
     uint8_t get_id() { return ID; }
     int set_target(double target);
