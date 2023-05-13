@@ -26,7 +26,7 @@ kinetics::alice_direct(const Pose& in, Node& out) {
 }
 
 int
-kinetics::alice_inverse(const Node& in, const Pose& current, Pose& out) {
+kinetics::alice_inverse(const Node& in, Pose& out) {
     
     double teta_final = deg2rad(teta_f);
     double z5 = l5 * sin(teta_final);

@@ -21,6 +21,6 @@ namespace kinetics
      * @returns int : 0 si no hay error, no-nulo si lo hay
     */
     int
-    alice_inverse(const Node& in, const Pose& current, Pose& out);
+    alice_inverse(const Node& in, Pose& out);
     
 } // namespace kinetics
