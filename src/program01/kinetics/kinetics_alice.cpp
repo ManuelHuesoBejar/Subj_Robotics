@@ -38,7 +38,7 @@ kinetics::alice_inverse(const Node& in, const Pose& current, Pose& out) {
 
     //Asignamos los valores obtenidos en la pose de salida 
     out.d2 = d;
-    out.q3 = alpha;
-    out.q4 = beta;
+    out.q3 = deg2rad(alpha);
+    out.q4 = deg2rad(beta);
 
 }
