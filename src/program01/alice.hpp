@@ -31,8 +31,13 @@ class Alice {
     Servo_Feedback q4{};
     Servo_Feedback q_effector{};
 
-    int (*_direct)(const Pose& in, Node& out) = nullptr;
-    int (*_inverse)(const Node& in, const Pose& current, Pose& out) = nullptr;
+    //Definimos las longitudes del robot
+    const double l1; //longitud de la columna central
+    const double l2; //longitud de la articulacion prismatica
+    const double l3; //Longitud (en eje y) ente la prismatica y el codo
+    const double l4; //longitud del brazo
+    const double l5; //longitud efector final
+
 
 public:
     int watchdog();
@@ -50,12 +55,6 @@ public:
     Node get_current();
     Pose get_current();
 
-    /** @brief Establece funciones para calcular cinemáticas
-    */
-    int bind_kinetics_funcs(
-        int (*direct)(const Pose& in, Node& out),
-        int (*inverse)(const Node& in, const Pose& current, Pose& out)) {
-            _direct = direct;
-            _inverse = inverse;
-        }
+    int inverse(const Node& in, Pose& out);
+    int direct(const Pose& in, Node& out);
 };
