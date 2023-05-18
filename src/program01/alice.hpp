@@ -21,8 +21,8 @@
 
 class Alice {
     // Pose destino
-    Pose target;
-    Node target;
+    Pose target_pose;
+    Node target_node;
 
     // Actuadores
     Rotative_actuator q1{};
@@ -52,8 +52,8 @@ public:
 
     /** @brief Obtiene Pose o Nodo actual
     */
-    Node get_current();
-    Pose get_current();
+    Node get_current_node();
+    Pose get_current_pose();
 
     int inverse(const Node& in, Pose& out);
     int direct(const Pose& in, Node& out);

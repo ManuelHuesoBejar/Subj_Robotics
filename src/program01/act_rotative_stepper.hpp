@@ -6,7 +6,7 @@
 #include "sensors/rotation_sensor.hpp"
 
 class Rotative_actuator: virtual public Actuator {
-    Rotation_sensor sensor;
+    Rotation_sensor* sensor;
     DRV8825 stepper;
 
 public:

@@ -4,42 +4,42 @@
 int Alice::watchdog()
 {
     int error = 0;
-    error += q1.watchdog();
-    error += q2.watchdog();
-    error += q3.watchdog();
-    error += q4.watchdog();
-    // error += q_effector.watchdog();
+    error |= q1.watchdog();
+    error |= q2.watchdog();
+    error |= q3.watchdog();
+    error |= q4.watchdog();
+    // error |= q_effector.watchdog();
     return error;
 }
 
 int Alice::move()
 {
     int error = 0;
-    error += q1.move();
-    error += q2.move();
-    error += q3.move();
-    error += q4.move();
-    // error += q_effector.move();
+    error |= q1.move();
+    error |= q2.move();
+    error |= q3.move();
+    error |= q4.move();
+    // error |= q_effector.move();
     return error;
 }
 
 int
 Alice::direct(const Pose& in, Node& out) {
 
-    //Aplicamos la matriz de transformacion homogénea para obtener las coords. finales
+    //Aplicamos la matriz de transformacion homogï¿½nea para obtener las coords. finales
     out.px = l3 * cos_deg(in.q1) - in.d2 * sin_deg(in.q1) + l4 * sin_deg(in.q1) * sin_deg(in.q3) + l5 * cos_deg(in.q3) * sin_deg(in.q1) * sin_deg(in.q4) + l5 * cos_deg(in.q4) * sin_deg(in.q1) * sin_deg(in.q3);
     out.py = in.d2 * cos_deg(in.q1) + l3 * sin_deg(in.q1) - l4 * cos_deg(in.q1) * sin_deg(in.q3) - l5 * cos_deg(in.q1) * cos_deg(in.q3) * sin_deg(in.q4) - l5 * cos_deg(in.q1) * cos_deg(in.q4) * sin_deg(in.q3);
     out.pz = l1 - l4 * cos_deg(in.q3) - l5 * cos_deg(in.q3) * cos_deg(in.q4) + l5 * sin_deg(in.q3) * sin_deg(in.q4);
 
-    //Para simplificar el cálculo, solamente consideraremos la rotación del efector final en el eje y
-    //ya que es la determinante para el hisopado. Dicha rotación coincide con el giro del servo del efector final
+    //Para simplificar el cï¿½lculo, solamente consideraremos la rotaciï¿½n del efector final en el eje y
+    //ya que es la determinante para el hisopado. Dicha rotaciï¿½n coincide con el giro del servo del efector final
     out.rx = 0;
     out.ry = in.q4 + in.q3;
     out.rz = 0;
 
-    //Comprobamos que la posición final se encuentre dentro de los límites del espacio de trabajo del robot
-    //Colocamos el origen de coordenadas en la base. Análisis del peor caso:
-    //Añadir una condicion en out.rz para que no se supere el giro maximo del servo?
+    //Comprobamos que la posiciï¿½n final se encuentre dentro de los lï¿½mites del espacio de trabajo del robot
+    //Colocamos el origen de coordenadas en la base. Anï¿½lisis del peor caso:
+    //Aï¿½adir una condicion en out.rz para que no se supere el giro maximo del servo?
     if ((out.px > (l2 / 2 + l4 + l5))||(out.px < -(l2 / 2 + l4 + l5))||
         (out.py > (l2 / 2 + l4 + l5))||(out.py < -(l2 / 2 + l4 + l5))||
         (out.pz > (l1 + l4 + l5))    ||(out.pz < (l1 - l4 - l5)))
@@ -61,10 +61,9 @@ Alice::inverse(const Node& in, Pose& out) {
     double x4 = l4 * cos(alpha);
     double d = in.px - (x5 + x4);
 
-    //Hay que añadirle condiciones para limitar las rotaciones de los servos
-    if ((d > l2 / 2 || d < l2 / 2))
-    {
-        return 1
+    //Hay que aï¿½adirle condiciones para limitar las rotaciones de los servos
+    if ((d > l2 / 2 || d < l2 / 2))     {
+        return 1;
     }
 
     else{
@@ -73,4 +72,40 @@ Alice::inverse(const Node& in, Pose& out) {
     out.q4 = deg2rad(beta);
     return 0;
     }
+}
+
+int Alice::set_target(const Pose &target) {
+    Node temp;
+    int err = direct(target, temp);
+    if(!err) {
+        target_node = temp;
+        target_pose = target;
+    }
+    return err;
+}
+
+int Alice::set_target(const Node &target) {
+    Pose temp;
+    int err = inverse(target, temp);
+    if(!err) {
+        target_node = target;
+        target_pose = temp;
+    }
+    return err;
+}
+
+Pose Alice::get_current_pose() {
+    Pose current;
+    current.q1 = q1.get_current_pos();
+    current.d2 = q2.get_current_pos();
+    current.q3 = q3.get_current_pos();
+    current.q4 = q4.get_current_pos();
+    return current;
+}
+
+Node Alice::get_current_node() {
+    Pose current_pose = get_current_pose();
+    Node current_node;
+    direct(current_pose, current_node);
+    return current_node;
 }

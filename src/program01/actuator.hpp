@@ -43,7 +43,7 @@ public:
     /** @brief Verifica que todo está OK. Eso incluye que no aumente
      * significativamente el error en el tiempo
     */
-    void watchdog();
+    int watchdog();
 };
 
 #endif // ACTUATOR_H

@@ -20,3 +20,6 @@ void Actuator::set_limits(double lim1, double lim2) {
         limits[1] = lim1;
     }
 }
+
+int Actuator::watchdog() {
+}
