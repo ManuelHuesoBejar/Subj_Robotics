@@ -7,7 +7,7 @@
 
 class Rotative_actuator: virtual public Actuator {
     Rotation_sensor* sensor;
-    DRV8825 stepper;
+    DRV8825* stepper;
 
 public:
     Rotative_actuator();
