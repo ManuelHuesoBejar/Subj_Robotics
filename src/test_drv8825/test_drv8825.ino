@@ -14,10 +14,16 @@
 DRV8825 stepper {STP_STEPS, STP3_DIR, STP3_STEP, STP_MODE0, STP_MODE1, STP_MODE2};
 
 void setup() {
-    stepper.begin(10.f, 1);
+    Serial.begin(115200);
+    stepper.begin(2.f, 32);
     stepper.rotate(90.);
 }
 
 void loop() {
     stepper.nextAction();
+    
+    Serial.print(analogRead(A0));
+    Serial.print("   ");
+    Serial.println(analogRead(A1));
+    
 }
