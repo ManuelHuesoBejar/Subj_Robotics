@@ -54,6 +54,8 @@ void setup() {
     cbi(ADCSRA,ADPS1);
     cbi(ADCSRA,ADPS0);
 #endif
+
+    // Tontería varia
     Serial.begin(115200);
     Serial.println(">> Webo!");
     Serial.println("Sys: Modelo M ha despertado");

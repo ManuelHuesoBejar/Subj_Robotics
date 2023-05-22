@@ -17,6 +17,10 @@
 
 class Alice {
     // Actuadores
-    Rotative_actuator q1{};
+    Rotative_actuator q1{Q1_SENSOR};
+    Rotative_actuator q2{Q2_SENSOR};
+    Rotative_actuator q3{};
+    Servo_Feedback q4{Q4_SENSOR};
+    Servo_Feedback q_effector{CLAMP_SENSOR};
 
 };
