@@ -14,8 +14,6 @@ Abstract: primer prototipo de software para probar cosiñas
 /* Inclusión de cabeceras del programa */
 #include "sensors/rotation_sensor.hpp"
 
-#include "alice.hpp"
-
 /* Instrucciones para la manipulación directa de registros */
 // defines for setting and clearing register bits
 #ifndef cbi
@@ -46,8 +44,6 @@ static enum State_machine {
 
 static Rotation_sensor Q1_sens{SENS_Q1, 3600.0};
 
-static Alice alicia;
-
 void setup() {
     state = uninitialized_robot;
     Q1_sens.begin();
@@ -58,12 +54,6 @@ void setup() {
     cbi(ADCSRA,ADPS1);
     cbi(ADCSRA,ADPS0);
 #endif
-
-    // Alicia
-    alicia.bind_kinetics_funcs(
-        kinetics::direct_alice,
-        kinetics::inverse_alice
-    );
 
     // Tontería varia
     Serial.begin(115200);
