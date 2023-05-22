@@ -5,7 +5,7 @@
 #include <inttypes.h>
 
 class Actuator {
-private:
+protected:
     static uint8_t ID_counter;
     uint8_t ID; 
     double current_pos = NAN;

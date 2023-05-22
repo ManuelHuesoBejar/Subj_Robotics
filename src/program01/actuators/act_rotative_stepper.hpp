@@ -10,7 +10,7 @@ class Rotative_actuator: virtual public Actuator {
     DRV8825* stepper;
 
 public:
-    Rotative_actuator();
+    Rotative_actuator(Rotation_sensor* sensor_, DRV8825* stepp);
 
     int move() override;
     void emergency_stop() override;

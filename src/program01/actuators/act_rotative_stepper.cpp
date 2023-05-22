@@ -1,6 +1,6 @@
 #include "act_rotative_stepper.hpp"
 
-Rotative_actuator::Rotative_actuator(Rotation_sensor* sensor_, DRV8825* stepp): sensor(sensor_), stepper(stepp){}
+Rotative_actuator::Rotative_actuator(Rotation_sensor* sensor_, DRV8825* stepp) : sensor(sensor_), stepper(stepp) {}
 
 double Rotative_actuator::get_current_pos(){
   current_pos = sensor->read_angle();
@@ -8,7 +8,7 @@ double Rotative_actuator::get_current_pos(){
 }
 
 int Rotative_actuator::move(){
-  double angle_dif = target_pos - *this.get_current_pos();
+  double angle_dif = target_pos - this->get_current_pos();
   if (angle_dif == 0) {
     stepper->stop();
     return 0;
