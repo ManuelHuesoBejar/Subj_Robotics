@@ -13,6 +13,8 @@ private:
     double expected_pos = NAN;
     double limits[2] = {NAN, NAN};
 
+    bool direction_inverter = false;
+
 public:
 /**
  * @brief Objeto base para trabajar con los actuadores.
